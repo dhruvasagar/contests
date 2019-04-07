@@ -76,11 +76,7 @@ func (p Path) String() string {
 	}
 	s := ""
 	for _, r := range p.route {
-		if r.IsSouth() {
-			s += "S"
-		} else {
-			s += "E"
-		}
+		s += r.Direction()
 	}
 	return s
 }
@@ -138,9 +134,9 @@ func NewPath(path []string) (r Path) {
 	for _, p := range path {
 		ii, jj := i, j
 		if p == "E" {
-			i += 1
+			i++
 		} else {
-			j += 1
+			j++
 		}
 		fnode := Node{x: ii, y: jj}
 		tnode := Node{x: i, y: j}
@@ -335,13 +331,14 @@ func solve(g Grid) Grid {
 	p, _ = walk(g, p, node, walkedEdges)
 	r := Grid{size: g.size}
 	r.path = *p
+	g.PrettyPrint()
+	r.PrettyPrint()
 	return r
 }
 
 func main() {
 	in := parseInput(readInput())
 	for i, grid := range in.grids {
-		out := solve(grid)
-		logCase(i+1, out)
+		logCase(i+1, solve(grid))
 	}
 }
