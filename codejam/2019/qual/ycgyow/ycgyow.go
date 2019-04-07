@@ -331,8 +331,6 @@ func solve(g Grid) Grid {
 	p, _ = walk(g, p, node, walkedEdges)
 	r := Grid{size: g.size}
 	r.path = *p
-	g.PrettyPrint()
-	r.PrettyPrint()
 	return r
 }
 
